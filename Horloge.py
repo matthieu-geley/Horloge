@@ -1,28 +1,32 @@
 import time
+from time import strftime
 
-def afficher_heure(hh, mm, ss, ha, ma, sa):
-    heure = (hh, mm, ss)
-    alarme = (ha, ma, sa)
-    heur, min, sec = heure
-    heura, mina, seca = alarme
-    compte = 1
-    while compte > 0:
-        if heur == heura and min == mina and sec == seca:
-            print("Il est l'heure de se réveiller")
-            break
-        elif sec == 60:
-            sec = 0
-            min += 1
-            if min == 60:
-                min = 0
-                heur += 1
-        affichage=(f"{heur:02d}"+":"+f"{min:02d}"+":"+f"{sec:02d}")
+
+def alarme(heure, minute, seconde):
+    heura = 13
+    minuta = 15
+    seconda = 50
+    if heure == heura and minute == minuta and seconde == seconda:
+        print("Il est l'heure de se réveiller")
+        return False
+
+def afficher_heure():
+    heure = int(strftime('%H'))
+    minute = int(strftime('%M'))
+    seconde = int(strftime('%S'))
+    i = 0
+    while i == 0:
+        if seconde == 60:
+            seconde = 0
+            minute += 1
+            if minute == 60:
+                minute = 0
+                heure += 1
+        affichage=(str(heure).rjust(2,'0')+":"+str(minute).rjust(2,'0')+":"+str(seconde).rjust(2,'0'))
+        seconde += 1
         print(affichage)
+        if alarme(heure, minute, seconde) == False:
+            i = 1
         time.sleep(1)
-        sec += 1
 
-def alarme(hh, mm, ss, ha, ma, sa):
-    afficher_heure(hh, mm, ss, ha, ma, sa)
-
-
-alarme(14,42,50,14,42,55)
+afficher_heure()
